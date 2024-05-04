@@ -9,7 +9,7 @@ const initialState = {
     roles: [],
     experience: [],
   },
-  totalJobs: null,
+  totalJobs: 0,
   jobsList: [],
 };
 
@@ -22,9 +22,14 @@ const searchJonSectionSlice = createSlice({
       const { data } = action.payload;
       state.jobsList = [...state.jobsList, ...data];
     },
+    // handles updating the total jobs count
+    updateTotalJobsCount: (state, action) => {
+      state.totalJobs = action.payload;
+    },
   },
 });
 
 export default searchJonSectionSlice.reducer;
 
-export const { updateJobsList } = searchJonSectionSlice.actions;
+export const { updateJobsList, updateTotalJobsCount } =
+  searchJonSectionSlice.actions;
