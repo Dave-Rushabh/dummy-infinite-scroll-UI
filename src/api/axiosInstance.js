@@ -14,9 +14,19 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   function (error) {
-    console.error("Response error:", error);
+    console.error(`Error in response for ${error.config.url} :`, error);
     return Promise.reject(error);
   }
 );
+
+export const postData = async (endpoint, payload) => {
+  try {
+    const response = await axiosInstance.post(endpoint, payload);
+    return response;
+  } catch (error) {
+    console.error(error, "<<== error");
+    throw error;
+  }
+};
 
 export default axiosInstance;

@@ -1,13 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  limit: 24,
-  offset: 0,
-  jobsList: [],
+  params: {
+    limit: 30,
+    offset: 0,
+  },
   filters: {
     roles: [],
     experience: [],
   },
+  totalJobs: null,
+  jobsList: [],
 };
 
 const searchJonSectionSlice = createSlice({
@@ -17,7 +20,7 @@ const searchJonSectionSlice = createSlice({
     // handles appending the new fetched jobs with existing jobs
     updateJobsList: (state, action) => {
       const { data } = action.payload;
-      state.jobsList = [...state.jobsList, data];
+      state.jobsList = [...state.jobsList, ...data];
     },
   },
 });

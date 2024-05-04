@@ -1,5 +1,13 @@
 :root {
-  --app_primary_bg: white;
-  --app_primary_green: #55eec5;
-  --app_primary_purple: #4943da;
+  /* color variables */
+  --app_primary_bg_white: white;
+  --app_primary_bg_green: #55eec5;
+  --app_primary_bg_purple: #4943da;
+
+  /* border radius variables */
+  --border-medium: 10px;
+  --border-small: 6px;
+
+  /* text variables */
+  --app_primary_color_grey: #8a8b8a;
 }
