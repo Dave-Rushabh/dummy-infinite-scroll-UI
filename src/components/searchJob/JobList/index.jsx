@@ -1,16 +1,24 @@
 import React from "react";
 import "./index.css";
 import JobCard from "./JobCard";
+import { Grid } from "@mui/material";
 
 const JobList = ({ jobsList }) => {
   return (
     <>
       {jobsList.length ? (
         <div className="jobs-list-container">
-          {jobsList.slice(0, 1).map((job) => {
-            const { jdUid } = job;
-            return <JobCard key={jdUid} {...{ jobInfo: job }} />;
-          })}
+          <Grid container spacing={2}>
+            {jobsList.map((job) => {
+              const { jdUid } = job;
+              return (
+                <JobCard
+                  key={jdUid + Math.random().toFixed(2)}
+                  {...{ jobInfo: job }}
+                />
+              );
+            })}
+          </Grid>
         </div>
       ) : (
         <div className="no-jobs-found-wrapper">

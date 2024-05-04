@@ -3,8 +3,12 @@
   box-shadow: var(--box-shadow-main);
   padding: 15px;
   max-width: 360px;
+  max-height: 560px;
   transition: all 0.2s ease-in-out;
   border: 1px solid transparent;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
 
 .job-card-wrapper:hover {
@@ -13,16 +17,193 @@
   box-shadow: var(--box-shadow-hover);
 }
 
+.top-section {
+  height: 70%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow: hidden;
+}
+
 .logo-name-wrapper {
   display: flex;
   gap: 10px;
 }
 
-.logo-name-wrapper .logo {
-  img {
-    height: 40px;
-    width: 40px;
-    mix-blend-mode: multiply;
-    border-radius: var(--border-small);
+.logo > img {
+  height: 40px;
+  width: 40px;
+  mix-blend-mode: multiply;
+  border-radius: var(--border-small);
+}
+
+.company-and-role {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.company {
+  color: var(--app_primary_color_grey);
+  font-weight: 600;
+  letter-spacing: 1px;
+  font-size: 13px;
+}
+
+.role {
+  font-size: 13px;
+  text-transform: capitalize;
+  font-weight: 300;
+}
+
+.location {
+  font-size: 11px;
+  text-transform: capitalize;
+  font-weight: 300;
+}
+
+.estimation {
+  display: flex;
+  align-items: center;
+}
+
+.estimation > p {
+  font-size: 14px;
+  gap: 4px;
+  font-weight: 300;
+}
+
+.estimation > div {
+  display: flex;
+}
+
+.header {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.label {
+  font-weight: 400;
+  margin-bottom: 4px;
+  font-size: 14px;
+}
+
+.description {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.card-footer {
+  background-color: white;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  position: relative;
+}
+
+.card-footer::before {
+  content: "";
+  position: absolute;
+  top: -14px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.7);
+  height: 16px;
+}
+
+.experience {
+  letter-spacing: 1;
+  font-weight: 400;
+  color: var(--app_primary_color_grey);
+  font-size: 14px;
+}
+
+.exp-value {
+  font-size: 13px;
+}
+
+.view-job {
+  display: flex;
+  align-self: center;
+  color: var(--app_primary_bg_purple);
+  font-weight: 300;
+  cursor: pointer;
+}
+
+.easy-apply {
+  display: flex;
+  gap: 6px;
+  border-radius: var(--border-small);
+  background-color: var(--app_primary_bg_green);
+  padding: 12px;
+  align-items: center;
+  justify-content: center;
+}
+
+.easy-apply:hover {
+  cursor: pointer;
+}
+
+.easy-apply > div {
+  display: flex;
+}
+
+.easy-apply > p {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.unlock-referrals {
+  display: flex;
+  gap: 6px;
+  border-radius: var(--border-small);
+  background-color: var(--app_primary_bg_purple);
+  color: white;
+  padding: 12px;
+  align-items: center;
+  justify-content: center;
+}
+
+.unlock-referrals:hover {
+  cursor: pointer;
+}
+
+.unlock-referrals > p {
+  font-size: 14px;
+}
+
+.users {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.user {
+  position: relative;
+}
+
+.user > img {
+  height: 20px;
+  width: 20px;
+  border-radius: 100%;
+  background-color: var(--app_primary_color_grey);
+  filter: blur(1px);
+}
+
+.dot {
+  height: 7px;
+  width: 7px;
+  background-color: var(--app_primary_bg_green);
+  position: absolute;
+  border-radius: 100%;
+  bottom: 4px;
+  right: 0;
+}
+
+@media screen and (max-width: 1200px) {
+  .job-card-wrapper {
+    max-width: unset;
   }
 }
