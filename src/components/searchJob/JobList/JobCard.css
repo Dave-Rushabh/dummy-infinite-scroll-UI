@@ -1,0 +1,28 @@
+.job-card-wrapper {
+  border-radius: var(--border-large);
+  box-shadow: var(--box-shadow-main);
+  padding: 15px;
+  max-width: 360px;
+  transition: all 0.2s ease-in-out;
+  border: 1px solid transparent;
+}
+
+.job-card-wrapper:hover {
+  transform: scale(1.01);
+  border-color: rgba(0, 0, 0, 40%);
+  box-shadow: var(--box-shadow-hover);
+}
+
+.logo-name-wrapper {
+  display: flex;
+  gap: 10px;
+}
+
+.logo-name-wrapper .logo {
+  img {
+    height: 40px;
+    width: 40px;
+    mix-blend-mode: multiply;
+    border-radius: var(--border-small);
+  }
+}

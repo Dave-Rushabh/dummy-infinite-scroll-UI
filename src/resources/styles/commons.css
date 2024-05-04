@@ -1,4 +1,5 @@
 .container {
   padding: 20px;
   background-color: var(--app_primary_bg_white);
+  max-width: 1920px;
 }

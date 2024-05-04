@@ -5,9 +5,14 @@
   --app_primary_bg_purple: #4943da;
 
   /* border radius variables */
+  --border-large: 20px;
   --border-medium: 10px;
   --border-small: 6px;
 
   /* text variables */
   --app_primary_color_grey: #8a8b8a;
+
+  /* box-shadow variables */
+  --box-shadow-main: 0px 0px 2px 0px rgba(0, 0, 0, 25%);
+  --box-shadow-hover: 0px 0px 4px 0px rgba(0, 0, 0, 25%);
 }

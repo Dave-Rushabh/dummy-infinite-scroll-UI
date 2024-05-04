@@ -46,6 +46,8 @@ const SearchJob = () => {
       }
     } catch (error) {
       setIsError({ flag: true, notification: true });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -53,25 +55,22 @@ const SearchJob = () => {
     fetchJobs();
   }, [jobParams, jobFilters]);
 
-  {
-    isError.flag && (
+  return (
+    <div className="search-job-page-container container">
+      <div className="filters-section">
+        <Filters {...{ jobFilters }} />
+      </div>
+
+      <div className="job-listing-section">
+        <JobList {...{ jobsList }} />
+      </div>
+
       <Notification
         open={isError.notification}
         onClose={handleErrorNotificationClose}
         severity={NOTIFICATION_TYPES.ERROR}
         message={"Something went wrong while fetching jobs..."}
       />
-    );
-  }
-
-  return (
-    <div className="search-job-page-container container">
-      <div className="filters-section">
-        <Filters {...{ jobFilters }} />
-      </div>
-      <div className="job-listing-section">
-        <JobList {...{ jobsList }} />
-      </div>
     </div>
   );
 };
