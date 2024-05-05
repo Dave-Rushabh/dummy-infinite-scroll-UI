@@ -8,6 +8,8 @@ import {
   Typography,
 } from "@mui/material";
 import "./index.css";
+import { useDispatch } from "react-redux";
+import { updateFilters } from "../../../store/slices/searchJobSectionSlice";
 
 const Filters = () => {
   const employeesOption = [
@@ -44,6 +46,41 @@ const Filters = () => {
     (_, idx) => `${(idx + 1) * 10} L`
   );
 
+  const techStackOptions = [
+    "React.js",
+    "Node.js",
+    "MongoDB",
+    "Express.js",
+    "Python",
+    "Django",
+    "PostgreSQL",
+    "Vue.js",
+    "GraphQL",
+    "JavaScript",
+    "TypeScript",
+    "Angular",
+    "AWS",
+    "Docker",
+    "Kubernetes",
+    "Redis",
+    "Elasticsearch",
+    "Flutter",
+    "Swift",
+    "TensorFlow",
+    "Kotlin",
+    "Ruby on Rails",
+    "ASP.NET",
+    "C#",
+    "Java",
+    "Spring Boot",
+    "MySQL",
+    "Firebase",
+    "Apache Kafka",
+    "Rust",
+  ];
+
+  const dispatch = useDispatch();
+
   return (
     <div className="filters-main">
       <div className="filter-wrapper">
@@ -51,6 +88,7 @@ const Filters = () => {
           options={rolesOptions}
           label="Roles"
           onSelectionClick={() => {}}
+          multiSelect={true}
         />
         <SelectionDropdown
           options={employeesOption}
@@ -59,20 +97,44 @@ const Filters = () => {
           multiSelect={true}
         />
         <SelectionDropdown
-          options={experienceOptions}
+          options={["any", ...experienceOptions]}
           label="Experience"
-          onSelectionClick={() => {}}
+          onSelectionClick={(val) => {
+            dispatch(
+              updateFilters({
+                key: "experience",
+                value: val === "any" ? null : val,
+              })
+            );
+          }}
         />
         <SelectionDropdown
           options={typeOfWorkOptions}
           label="Type of work"
           onSelectionClick={() => {}}
+          multiSelect={true}
         />
+
         <SelectionDropdown
-          options={minBaseSalaryOptions}
+          options={techStackOptions}
+          label="Tech stack"
+          onSelectionClick={(val) => {
+            dispatch(
+              updateFilters({
+                key: "techStack",
+                value: val,
+              })
+            );
+          }}
+          multiSelect={true}
+        />
+
+        <SelectionDropdown
+          options={["any", ...minBaseSalaryOptions]}
           label="Minimum base salary"
           onSelectionClick={() => {}}
         />
+
         <FormControl
           sx={{
             width: "auto",
@@ -85,6 +147,11 @@ const Filters = () => {
             id="filled-search"
             label="Search Company Name"
             type="search"
+            onChange={(e) =>
+              dispatch(
+                updateFilters({ key: "companyName", value: e.target.value })
+              )
+            }
             InputLabelProps={{
               style: { fontFamily: `"Lexend", sans-serif`, fontSize: "12px" },
             }}
