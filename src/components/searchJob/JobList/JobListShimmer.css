@@ -1,0 +1,138 @@
+.shimmer-job-card-wrapper {
+  border-radius: var(--border-large);
+  box-shadow: var(--box-shadow-main);
+  padding: 15px;
+  width: 360px;
+  height: 560px;
+  transition: all 0.2s ease-in-out;
+  border: 1px solid transparent;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.shimmer-top-section {
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow: hidden;
+}
+
+.shimmer-logo-name-wrapper {
+  display: flex;
+  gap: 10px;
+}
+
+.shimmer-logo {
+  height: 40px;
+  width: 40px;
+  border-radius: var(--border-small);
+}
+
+.shimmer-company-and-role {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 80%;
+}
+
+.shimmer-company {
+  color: var(--app_primary_color_grey);
+  font-weight: 600;
+  letter-spacing: 1px;
+  font-size: 13px;
+  width: 100%;
+}
+
+.shimmer-role {
+  font-size: 13px;
+  text-transform: capitalize;
+  font-weight: 300;
+}
+
+.shimmer-location {
+  font-size: 11px;
+  text-transform: capitalize;
+  font-weight: 300;
+}
+
+.shimmer-estimation {
+  display: flex;
+  align-items: center;
+}
+
+.shimmer-estimation > p {
+  font-size: 14px;
+  gap: 4px;
+  font-weight: 300;
+}
+
+.shimmer-about {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.shimmer-header {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.shimmer-label {
+  font-weight: 400;
+  margin-bottom: 4px;
+  font-size: 14px;
+}
+
+.shimmer-description {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.5;
+  height: 300px;
+}
+
+.shimmer-card-footer {
+  background-color: white;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  position: relative;
+  margin-top: 10px;
+}
+
+.shimmer-experience {
+  letter-spacing: 1;
+  font-weight: 400;
+  color: var(--app_primary_color_grey);
+  font-size: 14px;
+}
+
+.shimmer-exp-value {
+  font-size: 13px;
+}
+
+.shimmer-easy-apply {
+  display: flex;
+  gap: 6px;
+  border-radius: var(--border-small);
+  padding: 12px;
+  align-items: center;
+  justify-content: center;
+}
+
+.shimmer-unlock-referrals {
+  display: flex;
+  gap: 6px;
+  border-radius: var(--border-small);
+  color: white;
+  padding: 12px;
+  align-items: center;
+  justify-content: center;
+}
+
+@media screen and (max-width: 1200px) {
+  .shimmer-job-card-wrapper {
+    width: 100%;
+  }
+}

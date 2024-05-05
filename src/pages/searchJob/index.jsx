@@ -16,6 +16,7 @@ import {
 } from "../../store/slices/searchJobSectionSlice";
 import { NOTIFICATION_TYPES } from "../../utils/constants/notification";
 import "./index.css";
+import JobListShimmer from "../../components/searchJob/JobList/JobListShimmer";
 
 const SearchJob = () => {
   const dispatch = useDispatch();
@@ -61,16 +62,24 @@ const SearchJob = () => {
         <Filters {...{ jobFilters }} />
       </div>
 
-      <div className="job-listing-section">
-        <JobList {...{ jobsList }} />
-      </div>
+      {!isLoading ? (
+        <div className="job-listing-section">
+          <JobList {...{ jobsList }} />
+        </div>
+      ) : (
+        <JobListShimmer {...{ jobParams }} />
+      )}
 
-      <Notification
-        open={isError.notification}
-        onClose={handleErrorNotificationClose}
-        severity={NOTIFICATION_TYPES.ERROR}
-        message={"Something went wrong while fetching jobs..."}
-      />
+      {isError.flag && !isLoading ? (
+        <Notification
+          open={isError.notification}
+          onClose={handleErrorNotificationClose}
+          severity={NOTIFICATION_TYPES.ERROR}
+          message={"Something went wrong while fetching jobs..."}
+        />
+      ) : (
+        <></>
+      )}
     </div>
   );
 };
