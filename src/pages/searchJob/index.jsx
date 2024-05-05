@@ -4,6 +4,7 @@ import { postData } from "../../api/axiosInstance";
 import Notification from "../../components/common/Notification";
 import Filters from "../../components/searchJob/Filters";
 import JobList from "../../components/searchJob/JobList";
+import JobListShimmer from "../../components/searchJob/JobList/JobListShimmer";
 import {
   getJobListFilters,
   getJobListParams,
@@ -12,11 +13,11 @@ import {
 } from "../../store/selectors/searchJobSection";
 import {
   updateJobsList,
+  updateOffset,
   updateTotalJobsCount,
 } from "../../store/slices/searchJobSectionSlice";
 import { NOTIFICATION_TYPES } from "../../utils/constants/notification";
 import "./index.css";
-import JobListShimmer from "../../components/searchJob/JobList/JobListShimmer";
 
 const SearchJob = () => {
   const dispatch = useDispatch();
@@ -25,60 +26,54 @@ const SearchJob = () => {
   const jobFilters = useSelector(getJobListFilters);
   const totalJobsCount = useSelector(getTotalJobsCount);
   const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState({
-    flag: false,
-    notification: false,
-  });
+  const [isError, setIsError] = useState(false);
 
-  const handleErrorNotificationClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setIsError((prev) => ({ ...prev, notification: false }));
-  };
+  const fetchJobs = async (params) => {
+    if (isLoading) return;
 
-  const fetchJobs = async () => {
-    setIsLoading(true);
     try {
-      const response = await postData("/adhoc/getSampleJdJSON", jobParams);
+      setIsLoading(true);
+      const response = await postData("/adhoc/getSampleJdJSON", params);
       if (response) {
         dispatch(updateJobsList({ data: response?.data?.jdList || [] }));
-        dispatch(updateTotalJobsCount(response?.data?.totalCount || 0));
+        if (!totalJobsCount) {
+          dispatch(updateTotalJobsCount(response?.data?.totalCount || 0));
+        }
       }
     } catch (error) {
-      setIsError({ flag: true, notification: true });
+      setIsError(true);
     } finally {
       setIsLoading(false);
+      if (params.offset > jobParams.offset) {
+        dispatch(updateOffset(params.offset));
+      }
     }
   };
 
   useEffect(() => {
-    fetchJobs();
-  }, [jobParams, jobFilters]);
+    fetchJobs(jobParams);
+  }, []);
 
   return (
     <div className="search-job-page-container container">
       <div className="filters-section">
-        <Filters {...{ jobFilters }} />
+        <Filters jobFilters={jobFilters} />
       </div>
 
       {!isLoading ? (
         <div className="job-listing-section">
-          <JobList {...{ jobsList }} />
+          <JobList jobsList={jobsList} />
         </div>
       ) : (
-        <JobListShimmer {...{ jobParams }} />
+        <JobListShimmer jobParams={jobParams} />
       )}
 
-      {isError.flag && !isLoading ? (
+      {isError && !isLoading && (
         <Notification
-          open={isError.notification}
-          onClose={handleErrorNotificationClose}
+          open={true}
           severity={NOTIFICATION_TYPES.ERROR}
           message={"Something went wrong while fetching jobs..."}
         />
-      ) : (
-        <></>
       )}
     </div>
   );

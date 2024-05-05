@@ -1,4 +1,3 @@
-import { combineReducers } from "@reduxjs/toolkit";
 import searchJobSectionSlice from "./slices/searchJobSectionSlice";
 
 const rootReducer = {

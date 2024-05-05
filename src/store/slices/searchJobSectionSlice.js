@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   params: {
-    limit: 30,
+    limit: 50,
     offset: 0,
   },
   filters: {
@@ -26,10 +26,14 @@ const searchJonSectionSlice = createSlice({
     updateTotalJobsCount: (state, action) => {
       state.totalJobs = action.payload;
     },
+    // handles updating the params for limit and offset
+    updateOffset: (state, action) => {
+      state.params.offset = action.payload;
+    },
   },
 });
 
 export default searchJonSectionSlice.reducer;
 
-export const { updateJobsList, updateTotalJobsCount } =
+export const { updateJobsList, updateTotalJobsCount, updateOffset } =
   searchJonSectionSlice.actions;

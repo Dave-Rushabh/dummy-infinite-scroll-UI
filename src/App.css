@@ -42,3 +42,8 @@ body {
     left: 100%;
   }
 }
+
+.MuiSelect-select {
+  height: 15px !important;
+  min-width: 140px !important;
+}

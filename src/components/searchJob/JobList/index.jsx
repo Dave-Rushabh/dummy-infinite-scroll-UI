@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./index.css";
 import JobCard from "./JobCard";
 import { Grid } from "@mui/material";
