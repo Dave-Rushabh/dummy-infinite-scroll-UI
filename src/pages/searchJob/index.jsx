@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { postData } from "../../api/axiosInstance";
 import Notification from "../../components/common/Notification";
@@ -27,6 +27,8 @@ const SearchJob = () => {
   const totalJobsCount = useSelector(getTotalJobsCount);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
+  const scrollPosition = useRef(0);
+  const listRef = useRef(null);
 
   const fetchJobs = async (params) => {
     if (isLoading) return;
@@ -44,9 +46,6 @@ const SearchJob = () => {
       setIsError(true);
     } finally {
       setIsLoading(false);
-      if (params.offset > jobParams.offset) {
-        dispatch(updateOffset(params.offset));
-      }
     }
   };
 
@@ -54,19 +53,38 @@ const SearchJob = () => {
     fetchJobs(jobParams);
   }, []);
 
+  const handleScroll = () => {
+    const list = listRef.current;
+    const scrollDown = list.scrollTop > scrollPosition.current;
+    scrollPosition.current = list.scrollTop;
+
+    if (
+      scrollDown &&
+      list.scrollTop + list.clientHeight >= 0.85 * list.scrollHeight &&
+      jobsList.length < totalJobsCount &&
+      !isLoading
+    ) {
+      setIsLoading(true);
+      const { offset, limit } = jobParams;
+      fetchJobs({ offset: offset + limit, limit });
+      dispatch(updateOffset(offset + limit));
+    }
+  };
+
   return (
-    <div className="search-job-page-container container">
+    <div
+      className="search-job-page-container container"
+      onScroll={handleScroll}
+      ref={listRef}
+    >
       <div className="filters-section">
         <Filters jobFilters={jobFilters} />
       </div>
 
-      {!isLoading ? (
-        <div className="job-listing-section">
-          <JobList jobsList={jobsList} />
-        </div>
-      ) : (
-        <JobListShimmer jobParams={jobParams} />
-      )}
+      <div className="job-listing-section">
+        <JobList jobsList={jobsList} />
+        {isLoading && <JobListShimmer jobParams={jobParams} />}
+      </div>
 
       {isError && !isLoading && (
         <Notification

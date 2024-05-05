@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   params: {
-    limit: 50,
+    limit: 30,
     offset: 0,
   },
   filters: {
@@ -28,7 +28,7 @@ const searchJonSectionSlice = createSlice({
     },
     // handles updating the params for limit and offset
     updateOffset: (state, action) => {
-      state.params.offset = action.payload;
+      state.params = { ...state.params, offset: action.payload };
     },
   },
 });
